@@ -14,6 +14,6 @@ public class MegaBytesConverter {
             megaBytes = 0;
             remainder = 0;
         }
-        System.out.println((kiloBytes >= 0) ? kiloBytes + " KB = " + megaBytes + " MB and " + remainder + " KB": "Invalid Value");
+        System.out.println((kiloBytes >= 0) ? kiloBytes + " KB = " + megaBytes + " MB and " + remainder + " KB" : "Invalid Value");
     }
 }
