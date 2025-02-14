@@ -15,7 +15,10 @@ public class NextMain {
         var airplane = Movie.getMovie("C", "Airplane");
         airplane.watchMovie();
 
-        Object unknowObject = Movie.getMovie("C", "Airplane");
+        var plane = new Comedy("Airplane");
+        plane.watchComedy();
+
+        Object unknowObject = Movie.getMovie("S", "Star Wars");
         if (unknowObject.getClass().getSimpleName() == "Comedy") {
             Comedy c = (Comedy) unknowObject;
             c.watchComedy();
