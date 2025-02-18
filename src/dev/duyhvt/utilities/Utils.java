@@ -1,4 +1,4 @@
-package dev.duyhvt.section_9;
+package dev.duyhvt.utilities;
 
 import java.util.Random;
 import java.util.Scanner;
