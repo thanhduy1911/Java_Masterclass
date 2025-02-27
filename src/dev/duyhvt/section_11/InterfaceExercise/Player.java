@@ -73,6 +73,7 @@ public class Player implements ISaveable {
 
     @Override
     public String toString() {
-        return "Player{name='" + name + "', " + "hitPoints=" + hitPoints + "strength=" + strength + "weapon='" + weapon + "'}";
+        return """
+                Player{name='%s', hitPoints=%s, strength=%s, weapon='%s'}""".formatted(name, hitPoints, strength, weapon);
     }
 }
