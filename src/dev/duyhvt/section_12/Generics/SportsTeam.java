@@ -3,18 +3,18 @@ package dev.duyhvt.section_12.Generics;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BaseballTeam {
+public class SportsTeam {
     private String teamName;
-    private List<BaseballPlayer> teamMembers = new ArrayList<BaseballPlayer>();
+    private List<Player> teamMembers = new ArrayList<Player>();
     private int totalWins = 0;
     private int totalLosses = 0;
     private int totalTies = 0;
 
-    public BaseballTeam(String teamName) {
+    public SportsTeam(String teamName) {
         this.teamName = teamName;
     }
 
-    public void addTeamMember(BaseballPlayer player) {
+    public void addTeamMember(Player player) {
         if (!teamMembers.contains(player)) {
             teamMembers.add(player);
         }
