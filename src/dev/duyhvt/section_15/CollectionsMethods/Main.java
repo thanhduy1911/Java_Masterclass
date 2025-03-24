@@ -105,5 +105,15 @@ public class Main {
         Collections.rotate(copied, -2);
         System.out.println("UnRotated: " + deck.subList(0,13));
         System.out.println("Rotated " + -2 + ": " + copied);
+
+        copied = new ArrayList<>(deck.subList(0, 13));
+        for (int i = 0; i < copied.size() / 2; i++) {
+            Collections.swap(copied, i, copied.size() - 1 - i);
+        }
+        System.out.println("Manual reverse: " + copied);
+
+        copied = new ArrayList<>(deck.subList(0, 13));
+        Collections.reverse(copied);
+        System.out.println("Using reverse: " + copied);
     }
 }
