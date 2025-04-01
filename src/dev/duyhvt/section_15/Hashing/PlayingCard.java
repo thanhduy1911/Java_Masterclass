@@ -1,4 +1,4 @@
-package dev.duyhvt.section_15.Hasing;
+package dev.duyhvt.section_15.Hashing;
 
 import java.util.Objects;
 
