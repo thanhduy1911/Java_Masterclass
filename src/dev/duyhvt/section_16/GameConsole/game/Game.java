@@ -21,7 +21,7 @@ public abstract class Game<T extends Player> {
                             i -> this.printPlayer(i)),
                     'Q', new GameAction('Q', "Quit Game",
                             this::quitGame)
-            ))
+            ));
         }
 
         return standardActions;
