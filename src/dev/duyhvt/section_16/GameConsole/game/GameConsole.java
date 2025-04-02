@@ -14,7 +14,7 @@ public class GameConsole<T extends Game<? extends Player>> {
         System.out.print("Enter your playing name: ");
         String name = scanner.nextLine();
 
-        System.out.printf("Welcome to %s, %s%n").format(game.getGameName(), name);
+        System.out.printf("Welcome to %s, %s%n", game.getGameName(), name);
         return game.addPlayer(name);
     }
 
@@ -34,7 +34,10 @@ public class GameConsole<T extends Game<? extends Player>> {
 
             if (gameAction != null) {
                 System.out.println("-".repeat(70));
-                //done =
+                done = game.executeGameAction(playerIndex, gameAction);
+                if (!done) {
+                    System.out.println("-".repeat(70));
+                }
             }
         }
     }
