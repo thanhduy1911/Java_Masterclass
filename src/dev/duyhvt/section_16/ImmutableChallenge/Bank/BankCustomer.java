@@ -10,7 +10,7 @@ public class BankCustomer {
     private final int customerId;
     private final List<BankAccount> accounts = new ArrayList<>();
 
-    public BankCustomer(String name, double checkingAmount, double savingsAmount) {
+    BankCustomer(String name, double checkingAmount, double savingsAmount) {
         this.name = name;
         this.customerId = lastCustomerId++;
         accounts.add(new BankAccount(BankAccount.AccountType.CHECKING, checkingAmount));
@@ -21,8 +21,21 @@ public class BankCustomer {
         return name;
     }
 
+    public String getCustomerId() {
+        return "%015d".formatted(customerId);
+    }
+
     public List<BankAccount> getAccounts() {
-        return new ArrayList<>(accounts);
+        return List.copyOf(accounts);
+    }
+
+    public BankAccount getAccount(BankAccount.AccountType type) {
+        for (var account : accounts) {
+            if (account.getAccountType() == type) {
+                return account;
+            }
+        }
+        return null;
     }
 
     @Override
