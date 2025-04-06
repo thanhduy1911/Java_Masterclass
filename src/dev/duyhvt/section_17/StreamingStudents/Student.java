@@ -3,9 +3,7 @@ package dev.duyhvt.section_17.StreamingStudents;
 import dev.duyhvt.section_17.StreamsChallenge.Course;
 
 import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 public class Student {
     private static long lastStudentId = 1;
@@ -107,8 +105,17 @@ public class Student {
         return data[random.nextInt(data.length)];
     }
 
+    private static Course[] getRandomSelection(Course... courses) {
+        int courseCount = random.nextInt(1, courses.length + 1);
+        List<Course> courseList = new ArrayList<>(Arrays.asList(courses));
+        Collections.shuffle(courseList);
+        List<Course> selectedCourses = courseList.subList(0, courseCount);
+        return selectedCourses.toArray(new Course[0]);
+    }
+
     public static Student getRandomStudent(Course... courses) {
         int maxYear = LocalDate.now().getYear() + 1;
+        Course[] randomCourse = getRandomSelection(courses);
 
         Student student = new Student(
                 getRandomVal("AU", "CA", "VN", "JP", "US"),
@@ -116,8 +123,8 @@ public class Student {
                 random.nextInt(18, 90),
                 getRandomVal("M", "F", "U"),
                 random.nextBoolean(),
-                courses);
-        for (Course course : courses) {
+                randomCourse);
+        for (Course course : randomCourse) {
             int lecture = random.nextInt(30, course.lectureCount());
             int year = random.nextInt(student.getYearEnrolled(), maxYear);
             int month = random.nextInt(1, 13);
