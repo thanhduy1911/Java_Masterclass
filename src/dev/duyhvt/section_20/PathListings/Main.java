@@ -9,8 +9,9 @@ import java.time.Instant;
 public class Main {
     public static void main(String[] args) {
         Path path = Path.of("src/dev/duyhvt/section_20/files/testing.txt");
-        printPathInfo(path);
+//        printPathInfo(path);
         logStatement(path);
+        extraInfo(path);
     }
 
     private static void printPathInfo(Path path) {
@@ -49,6 +50,16 @@ public class Main {
                     StandardOpenOption.APPEND);
         } catch (IOException ioException) {
             ioException.printStackTrace();
+        }
+    }
+
+    private static void extraInfo(Path path) {
+        try {
+            var atts = Files.readAttributes(path, "*");
+            atts.entrySet().forEach(System.out::println);
+            System.out.println(Files.probeContentType(path));
+        } catch (IOException ioException) {
+            System.out.println("Problem getting attributes");
         }
     }
 }
