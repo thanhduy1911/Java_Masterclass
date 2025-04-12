@@ -1,0 +1,8 @@
+Directory Contents: 
+C:\Users\Thanh Duy\IdeaProjects\Java_Masterclass\src\dev\duyhvt\section_20\DirectoryFileChallenge\public\assets
+C:\Users\Thanh Duy\IdeaProjects\Java_Masterclass\src\dev\duyhvt\section_20\DirectoryFileChallenge\public\assets\icons
+C:\Users\Thanh Duy\IdeaProjects\Java_Masterclass\src\dev\duyhvt\section_20\DirectoryFileChallenge\public\assets\icons\index.txt
+C:\Users\Thanh Duy\IdeaProjects\Java_Masterclass\src\dev\duyhvt\section_20\DirectoryFileChallenge\public\assets\icons\indexCopy.txt
+C:\Users\Thanh Duy\IdeaProjects\Java_Masterclass\src\dev\duyhvt\section_20\DirectoryFileChallenge\public\assets\index.txt
+C:\Users\Thanh Duy\IdeaProjects\Java_Masterclass\src\dev\duyhvt\section_20\DirectoryFileChallenge\public\assets\indexCopy.txt
+Generated: 2025-04-12T14:05:41.450115200
