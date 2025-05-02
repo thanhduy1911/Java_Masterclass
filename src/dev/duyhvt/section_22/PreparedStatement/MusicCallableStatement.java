@@ -4,7 +4,7 @@ import com.mysql.cj.jdbc.MysqlDataSource;
 
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
+import java.nio.file.*;
 import java.sql.*;
 import java.util.Map;
 import java.util.stream.Collectors;
