@@ -1,4 +1,4 @@
-package dev.duyhvt.coding;
+package dev.duyhvt.coding.potd;
 
 public class checkIfDigitsAreEqualInStringAfterOperationsI {
     private static boolean hasSameDigits(String s) {

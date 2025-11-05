@@ -1,4 +1,4 @@
-package dev.duyhvt.coding;
+package dev.duyhvt.coding.potd;
 
 public class nextGreaterNumericallyBalancedNumber {
     private static int solution(int n) {

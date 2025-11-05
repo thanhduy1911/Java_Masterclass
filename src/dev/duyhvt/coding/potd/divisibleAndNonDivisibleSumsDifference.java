@@ -1,4 +1,4 @@
-package dev.duyhvt.coding;
+package dev.duyhvt.coding.potd;
 
 public class divisibleAndNonDivisibleSumsDifference {
     private static int differenceOfSums(int n, int m) {

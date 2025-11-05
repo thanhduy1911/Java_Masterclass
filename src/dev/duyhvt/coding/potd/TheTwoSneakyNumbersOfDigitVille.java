@@ -1,4 +1,4 @@
-package dev.duyhvt.coding;
+package dev.duyhvt.coding.potd;
 
 import java.util.HashMap;
 import java.util.List;

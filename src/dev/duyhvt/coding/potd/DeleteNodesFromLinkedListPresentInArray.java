@@ -1,4 +1,4 @@
-package dev.duyhvt.coding;
+package dev.duyhvt.coding.potd;
 
 public class DeleteNodesFromLinkedListPresentInArray {
 //    private static ListNode modifiedList(int[] nums, ListNode head) {

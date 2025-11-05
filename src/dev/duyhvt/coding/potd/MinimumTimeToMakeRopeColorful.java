@@ -1,4 +1,4 @@
-package dev.duyhvt.coding;
+package dev.duyhvt.coding.potd;
 
 public class MinimumTimeToMakeRopeColorful {
     public static int minCost(String colors, int[] neededTime) {
