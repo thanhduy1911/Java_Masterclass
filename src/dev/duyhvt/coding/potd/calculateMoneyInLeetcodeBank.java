@@ -1,4 +1,4 @@
-package dev.duyhvt.coding;
+package dev.duyhvt.coding.potd;
 
 public class calculateMoneyInLeetcodeBank {
     private static int totalMoney(int n) {
