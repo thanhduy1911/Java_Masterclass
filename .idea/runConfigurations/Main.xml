@@ -2,6 +2,7 @@
   <configuration default="false" name="Main" type="Application" factoryName="Application" nameIsGenerated="true">
     <envs>
       <env name="MYSQL_PASS" value="Duyhvt#1911" />
+      <env name="MYSQL_USER" value="dev" />
     </envs>
     <option name="MAIN_CLASS_NAME" value="dev.duyhvt.section_22.MySQLMusic.Main" />
     <module name="Java_Masterclass" />
