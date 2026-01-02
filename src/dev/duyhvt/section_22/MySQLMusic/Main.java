@@ -2,36 +2,61 @@ package dev.duyhvt.section_22.MySQLMusic;
 
 import com.mysql.cj.jdbc.MysqlDataSource;
 
-import javax.swing.*;
-import java.sql.Connection;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
+import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Arrays;
+import java.sql.Statement;
+import java.util.Properties;
 
 public class Main {
-    private final static String CONNECTION_STRING = "jdbc:mysql://localhost:3306/music";
-    public static void main(String[] args){
+  public static void main(String[] args) {
 
-        String username = JOptionPane.showInputDialog(null,"Username: ");
+    Properties props = new Properties();
 
-        JPasswordField passwordField = new JPasswordField();
-        int okCxl = JOptionPane.showConfirmDialog(null, passwordField, "Password",  JOptionPane.OK_CANCEL_OPTION);
-        final char[] password = (okCxl == JOptionPane.OK_OPTION) ? passwordField.getPassword() : null;
-
-        var dataSource = new MysqlDataSource();
-        dataSource.setURL(CONNECTION_STRING);
-        dataSource.setServerName("localhost");
-        dataSource.setPort(3306);
-        dataSource.setDatabaseName("music");
-        dataSource.setUser(username);
-        assert password != null;
-        dataSource.setPassword(String.valueOf(password));
-
-        // try (Connection connection = DriverManager.getConnection(CONNECTION_STRING, username, String.valueOf(password))) {
-        try (Connection connection = dataSource.getConnection()) {
-          System.out.println("Successfully connected to database.");
-          Arrays.fill(password, ' ');
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+    try {
+      props.load(
+          Files.newInputStream(
+              Path.of("src/dev/duyhvt/section_22/MySQLMusic/music.properties"),
+              StandardOpenOption.READ));
+    } catch (IOException e) {
+      throw new RuntimeException(e);
     }
+
+    var dataSource = new MysqlDataSource();
+    dataSource.setServerName(props.getProperty("serverName"));
+    dataSource.setPort(Integer.parseInt(props.getProperty("port")));
+    dataSource.setDatabaseName(props.getProperty("databaseName"));
+    String albumName = "Tapestry";
+    String query = "SELECT * FROM music.albumview WHERE album_name = '%s'".formatted(albumName);
+
+    try (var connection =
+            dataSource.getConnection(props.getProperty("user"), System.getenv("MYSQL_PASS"));
+        Statement statement = connection.createStatement()) {
+
+      ResultSet resultSet = statement.executeQuery(query);
+      var meta = resultSet.getMetaData();
+      for (int i = 1; i <= meta.getColumnCount(); i++) {
+        System.out.printf("%d %s %s\n", i, meta.getColumnName(i), meta.getColumnTypeName(i));
+      }
+
+      System.out.println("=======================");
+
+      for (int i = 1; i <= meta.getColumnCount(); i++) {
+        System.out.printf("%-15s", meta.getColumnName(i).toUpperCase());
+      }
+      System.out.println();
+      while (resultSet.next()) {
+        for (int i = 1; i <= meta.getColumnCount(); i++) {
+          System.out.printf("%-15s", resultSet.getString(i));
+        }
+        System.out.println();
+      }
+
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
+    }
+  }
 }

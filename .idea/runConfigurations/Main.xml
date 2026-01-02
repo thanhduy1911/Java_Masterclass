@@ -1,8 +1,8 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="Main" type="Application" factoryName="Application" nameIsGenerated="true">
-    <option name="envFilePaths">
-      <option value="$PROJECT_DIR$/src/dev/duyhvt/.env" />
-    </option>
+    <envs>
+      <env name="MYSQL_PASS" value="Duyhvt#1911" />
+    </envs>
     <option name="MAIN_CLASS_NAME" value="dev.duyhvt.section_22.MySQLMusic.Main" />
     <module name="Java_Masterclass" />
     <extension name="coverage">
