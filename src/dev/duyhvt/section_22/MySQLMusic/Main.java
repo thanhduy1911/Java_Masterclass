@@ -29,8 +29,8 @@ public class Main {
     dataSource.setServerName(props.getProperty("serverName"));
     dataSource.setPort(Integer.parseInt(props.getProperty("port")));
     dataSource.setDatabaseName(props.getProperty("databaseName"));
-    String albumName = "Tapestry";
-    String query = "SELECT * FROM music.albumview WHERE album_name = '%s'".formatted(albumName);
+
+    String query = "SELECT * FROM music.artists LIMIT 10";
 
     try (var connection =
             dataSource.getConnection(props.getProperty("user"), System.getenv("MYSQL_PASS"));
@@ -38,9 +38,6 @@ public class Main {
 
       ResultSet resultSet = statement.executeQuery(query);
       var meta = resultSet.getMetaData();
-      for (int i = 1; i <= meta.getColumnCount(); i++) {
-        System.out.printf("%d %s %s\n", i, meta.getColumnName(i), meta.getColumnTypeName(i));
-      }
 
       System.out.println("=======================");
 
