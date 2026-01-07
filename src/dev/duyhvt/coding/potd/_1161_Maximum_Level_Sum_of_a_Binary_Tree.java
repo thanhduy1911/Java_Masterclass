@@ -1,23 +1,10 @@
 package dev.duyhvt.coding.potd;
 
+import dev.duyhvt.utilities.TreeNode;
+
 import java.util.ArrayDeque;
 
 public class _1161_Maximum_Level_Sum_of_a_Binary_Tree {
-  public static class TreeNode {
-    int val;
-    TreeNode left, right;
-
-    public TreeNode(int val) {
-      this.val = val;
-    }
-
-    public TreeNode(int val, TreeNode left, TreeNode right) {
-      this.val = val;
-      this.left = left;
-      this.right = right;
-    }
-  }
-
   public int maxLevelSum(TreeNode root) {
     ArrayDeque<TreeNode> queue = new ArrayDeque<>();
     queue.add(root);
