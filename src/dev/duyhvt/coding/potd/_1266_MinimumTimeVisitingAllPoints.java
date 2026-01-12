@@ -1,0 +1,13 @@
+package dev.duyhvt.coding.potd;
+
+public class _1266_MinimumTimeVisitingAllPoints {
+    public int minTimeToVisitAllPoints(int[][] points) {
+        int total = 0;
+        for (int i = 1; i < points.length; i++) {
+            int dx = Math.abs(points[i][0] - points[i - 1][0]);
+            int dy = Math.abs(points[i][1] - points[i - 1][1]);
+            total += Math.max(dx, dy);
+        }
+        return total;
+    }
+}
