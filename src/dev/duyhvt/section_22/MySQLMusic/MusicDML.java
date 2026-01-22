@@ -14,7 +14,7 @@ public class MusicDML {
         Statement statement = connection.createStatement()) {
       String tableName = "music.artists";
       String columnName = "artist_name";
-      String columnValue = "Neil Young";
+      String columnValue = "Bob Dylan";
       if (!executeSelect(statement, tableName, columnName, columnValue)) {
         System.out.println("Maybe we should add this record");
         var isInserted =
@@ -61,15 +61,21 @@ public class MusicDML {
   }
 
   private static boolean insertRecord(
-      Statement statement, String table, String[] columnName, String[] columnValue)
+      Statement statement, String table, String[] columnNames, String[] columnValues)
       throws SQLException {
 
-    String colNames = String.join(", ", columnName);
-    String colValues = String.join(", ", columnValue);
+    String colNames = String.join(", ", columnNames);
+    String colValues = String.join(", ", columnValues);
     String query = "INSERT INTO %s (%s) VALUES ('%s')".formatted(table, colNames, colValues);
     System.out.println(query);
-    boolean isInserted = statement.execute(query);
-    System.out.println("isInserted: " + isInserted);
-    return isInserted;
+
+    statement.execute(query);
+
+    int recordsInserted = statement.getUpdateCount();
+    if (recordsInserted > 0) {
+      executeSelect(statement, table, columnNames[0], columnValues[0]);
+    }
+
+    return recordsInserted > 0;
   }
 }
