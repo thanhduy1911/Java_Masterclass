@@ -18,9 +18,14 @@ public class MusicDML {
       if (!executeSelect(statement, tableName, columnName, columnValue)) {
         insertArtistAlbum(statement, columnValue, columnValue);
       } else {
-        // updateRecord(statement, tableName, columnName, columnValue);
-        updateRecord(
-            statement, tableName, columnName, columnValue, columnName, columnValue.toUpperCase());
+        try {
+          deleteArtistAlbum(connection, statement, columnValue, columnValue);
+        } catch (SQLException e) {
+          System.out.println("Error while deleting artist album " + e.getMessage());
+        }
+
+        executeSelect(statement, "music.albumview", "album_name", columnValue);
+        executeSelect(statement, "music.albums", "album_name", columnValue);
       }
     } catch (SQLException e) {
       throw new RuntimeException(e);
@@ -138,5 +143,38 @@ public class MusicDML {
       statement.execute(songQry);
     }
     executeSelect(statement, "music.albumview", "album_name", "Bob Dylan");
+  }
+
+  private static void deleteArtistAlbum(
+      Connection connection, Statement statement, String artistName, String albumName)
+      throws SQLException {
+    try {
+      System.out.println("AUTOCOMMIT = " + connection.getAutoCommit());
+
+      connection.setAutoCommit(false);
+
+      String deleteSongs =
+          """
+                 DELETE FROM music.songs WHERE album_id =
+                 (SELECT ALBUM_ID from music.albums WHERE album_name = '%s')"""
+              .formatted(albumName);
+      int deletedSongs = statement.executeUpdate(deleteSongs);
+      System.out.printf("Deleted %d rows from music.songs%n", deletedSongs);
+
+      String deleteAlbums = "DELETE FROM music.albums WHERE album_name='%s'".formatted(albumName);
+      int deletedAlbums = statement.executeUpdate(deleteAlbums);
+      System.out.printf("Deleted %d rows from music.albums%n", deletedAlbums);
+
+      String deleteArtist =
+          "DELETE FROM music.artists WHERE artist_name='%s'".formatted(artistName);
+      int deletedArtist = statement.executeUpdate(deleteArtist);
+      System.out.printf("Deleted %d rows from music.artists%n", deletedArtist);
+
+      connection.commit();
+    } catch (SQLException e) {
+      System.out.println("Error while deleting artist album " + e.getMessage());
+      connection.rollback();
+    }
+    connection.setAutoCommit(true);
   }
 }
