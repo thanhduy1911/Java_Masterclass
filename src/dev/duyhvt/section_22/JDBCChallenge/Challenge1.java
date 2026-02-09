@@ -6,7 +6,7 @@ import java.sql.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class Main {
+public class Challenge1 {
   private static final String USE_SCHEMA;
   private static final int MYSQL_DB_NOT_FOUND = 1049;
 
