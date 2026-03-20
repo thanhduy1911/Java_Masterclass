@@ -48,6 +48,7 @@ public class MusicCallableStatement {
 
     try (Connection connection =
         datasource.getConnection(System.getenv("MYSQL_USER"), System.getenv("MYSQL_PASS"))) {
+      /*
       CallableStatement callableStatement = connection.prepareCall("CALL music.addAlbum(?,?,?)");
       albums.forEach(
           (artist, artistAlbums) ->
@@ -61,13 +62,31 @@ public class MusicCallableStatement {
                     } catch (SQLException e) {
                       System.err.println(e.getErrorCode() + " " + e.getMessage());
                     }
-                  }));
+                  })); */
 
       String sql = "SELECT * FROM music.albumview WHERE artist_name = ?";
       PreparedStatement ps = connection.prepareStatement(sql);
       ps.setString(1, "Bob Dylan");
       ResultSet resultSet = ps.executeQuery();
       MusicDML.printRecord(resultSet);
+
+      CallableStatement csf = connection.prepareCall("{ ? = CALL music.calcAlbumLength(?) }");
+      csf.registerOutParameter(1, Types.DOUBLE);
+      albums.forEach(
+          (artist, albumMap) ->
+              albumMap
+                  .keySet()
+                  .forEach(
+                      albumName -> {
+                        try {
+                          csf.setString(2, albumName);
+                          csf.execute();
+                          double result = csf.getDouble(1);
+                          System.out.printf("Length of %s is %.1f\n", albumName, result);
+                        } catch (SQLException e) {
+                          throw new RuntimeException(e);
+                        }
+                      }));
     } catch (SQLException e) {
       throw new RuntimeException(e);
     }
