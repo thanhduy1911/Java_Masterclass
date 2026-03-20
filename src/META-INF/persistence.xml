@@ -4,6 +4,7 @@
              version="2.0">
     <persistence-unit name="dev.duyhvt.section_22.JPA.music">
         <class>dev.duyhvt.section_22.JPA.music.Artist</class>
+        <class>dev.duyhvt.section_22.JPA.music.Album</class>
 
         <properties>
             <property name="jakarta.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>

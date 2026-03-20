@@ -1,5 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module type="JAVA_MODULE" version="4">
+  <component name="FacetManager">
+    <facet type="jpa" name="JPA">
+      <configuration>
+        <setting name="validation-enabled" value="true" />
+        <setting name="provider-name" value="Hibernate" />
+        <datasource-mapping>
+          <factory-entry name="Java_Masterclass" value="a24ba843-3943-42da-8e01-a838ed9be9ab" />
+        </datasource-mapping>
+        <naming-strategy-map>
+          <unit-entry name="Java_Masterclass" />
+        </naming-strategy-map>
+        <deploymentDescriptor name="persistence.xml" url="file://$MODULE_DIR$/src/META-INF/persistence.xml" />
+      </configuration>
+    </facet>
+  </component>
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
     <content url="file://$MODULE_DIR$">

@@ -12,7 +12,9 @@ public class Main {
         var transaction = entityManager.getTransaction();
         transaction.begin();
         var artist = entityManager.find(Artist.class, 202);
-        artist.setArtistName("Muddy Waters");
+        System.out.println(artist);
+        artist.addAlbum("The Best of Muddy Waters");
+        // artist.removeDuplicates();
         System.out.println(artist);
         // entityManager.remove(artist);
         // entityManager.persist(new Artist("Muddy Waters"));
