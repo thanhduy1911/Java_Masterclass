@@ -5,14 +5,21 @@ import com.mysql.cj.jdbc.MysqlDataSource;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.ResolverStyle;
+import java.util.*;
 
 record OrderDetails(int orderDetailId, String itemDescription, int quantity) {
   public OrderDetails(String itemDescription, int quantity) {
     this(-1, itemDescription, quantity);
+  }
+
+  public String toJson() {
+    StringJoiner joiner = new StringJoiner(", ", "{", "}");
+    joiner.add("\"itemDescription\":\"" + itemDescription + "\"");
+    joiner.add("\"quantity\":" + quantity);
+    return joiner.toString();
   }
 }
 
@@ -25,12 +32,18 @@ record Order(int orderId, String dateString, List<OrderDetails> details) {
     OrderDetails item = new OrderDetails(itemDescription, quantity);
     details.add(item);
   }
+
+  public String getDetailsJson() {
+    StringJoiner jsonString = new StringJoiner(",", "[", "]");
+    details.forEach((detail) -> jsonString.add(detail.toJson()));
+    return jsonString.toString();
+  }
 }
 
 public class Challenge2 {
-  static String SCHEMA_NAME = "storefront";
-  static String TABLE_NAME = "order_details";
-  static String COLUMN_NAME = "quantity";
+  //  static String SCHEMA_NAME = "storefront";
+  //  static String TABLE_NAME = "order_details";
+  //  static String COLUMN_NAME = "quantity";
 
   public static void main(String[] args) {
     var dataSource = new MysqlDataSource();
@@ -41,11 +54,28 @@ public class Challenge2 {
     List<Order> orders = readData();
 
     try (Connection connection = dataSource.getConnection()) {
-      if (!columnExists(connection, SCHEMA_NAME, TABLE_NAME, COLUMN_NAME)) {
-        addNewDBColumn(connection);
+      //      if (!columnExists(connection, SCHEMA_NAME, TABLE_NAME, COLUMN_NAME)) {
+      //        addNewDBColumn(connection);
+      //      }
+      //
+      //      addOrders(connection, orders);
+      var cs = connection.prepareCall("{ CALL storefront.addOrder(?, ?, ?, ?) }");
+      var formatter =
+          DateTimeFormatter.ofPattern("uuuu-MM-dd HH:mm:ss")
+              .withResolverStyle(ResolverStyle.STRICT);
+      for (Order order : orders) {
+        try {
+          var localDateTime = LocalDateTime.parse(order.dateString(), formatter);
+          var timestamp = Timestamp.valueOf(localDateTime);
+          cs.setTimestamp(1, timestamp);
+          cs.setString(2, order.getDetailsJson());
+          cs.execute();
+          System.out.printf(
+              "%d records inserted for %d (%s)\n", cs.getInt(4), cs.getInt(3), order.dateString());
+        } catch (Exception ex) {
+          System.out.printf("Problem with %s : %s\n", order.dateString(), ex.getMessage());
+        }
       }
-
-      addOrders(connection, orders);
 
     } catch (SQLException e) {
       throw new RuntimeException(e);
@@ -131,7 +161,7 @@ public class Challenge2 {
     }
   }
 
-  private static void addOrders(Connection connection, List<Order> orders) throws SQLException {
+  private static void addOrders(Connection connection, List<Order> orders) {
     String insertOrder = "INSERT INTO storefront.orders (order_date) VALUE (?)";
     String insertDetail =
         "INSERT INTO storefront.order_details (order_id, item_description, quantity) VALUES (?, ?, ?)";
