@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SqlDialectMappings">
+    <file url="file://$PROJECT_DIR$/resources/addAlbumSongs.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/dev/duyhvt/section_22/JDBCChallenge/Challenge1.java" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/src/dev/duyhvt/section_22/JDBCChallenge/Challenge2.java" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/src/dev/duyhvt/section_22/MySQLMusic/Main.java" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/src/dev/duyhvt/section_22/MySQLMusic/MusicDML.java" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/src/dev/duyhvt/section_22/PreparedStatement/Main.java" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/src/dev/duyhvt/section_22/PreparedStatement/MusicCallableStatement.java" dialect="GenericSQL" />
+  </component>
+</project>

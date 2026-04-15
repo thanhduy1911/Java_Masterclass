@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourcePerFileMappings">
+    <file url="file://$APPLICATION_CONFIG_DIR$/consoles/db/a24ba843-3943-42da-8e01-a838ed9be9ab/console.sql" value="a24ba843-3943-42da-8e01-a838ed9be9ab" />
+    <file url="file://$PROJECT_DIR$/resources/addAlbumSongs.sql" value="a24ba843-3943-42da-8e01-a838ed9be9ab" />
+  </component>
+</project>
